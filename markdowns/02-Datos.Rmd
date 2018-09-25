@@ -1,0 +1,56 @@
+---
+title: "02-Carga de Datos"
+author: "Juan Gabriel"
+output: 
+  html_document: 
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Tipos de ficheros 
+Losa tipos de ficheros más usados son: 
+
+- CSV
+- XML
+- JSON 
+
+## Ficheros CSV
+Para leer un csv tenemos la función *read.csv*.
+
+```{r}
+data <- read.csv("../data/tema1/auto-mpg.csv", header = TRUE, sep = ",")
+
+names(data)#devuelve el nombre de las columnas
+
+str(data)#estructura de los datos
+
+summary(data) #resumen de estadísticos básicos
+```
+
+Si no hay cabecera:
+```{r}
+data <- read.csv("../data/tema1/auto-mpg-noheader.csv", header = FALSE, sep =",",
+                 col.names = c("Numero", "MillasPorGalon", "Cilindrada", 
+                               "Desplazamiento", "Caballos", "Peso", 
+                               "Aceleracion", "Año", "Modelo"))
+
+head(data, 5) # Muestra los 5 primeros por pantalla
+
+tail(data, 5) # muestra los 5 últimos por pantalla
+```
+
+
+Para leer desde la red
+```{r}
+data <- read.csv("https://frogames.es/course-contents/r/intro/tema1/WHO.csv")
+
+#head(data)
+
+#summary(data)
+
+#str(data)
+```
+

@@ -1,0 +1,24 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1537865982253.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3497521781",
+    "id" : "1561FFBF",
+    "lastKnownWriteTime" : 1537867951,
+    "last_content_update" : 1537867951981,
+    "path" : "~/Developer/Projects/R/Cursos/curso-bussor-datos-2018/markdowns/02-Datos.Rmd",
+    "project_path" : "markdowns/02-Datos.Rmd",
+    "properties" : {
+        "cursorPosition" : "53,1",
+        "last_setup_crc32" : "9D54CBAEbb338d19",
+        "scrollLine" : "39",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}
