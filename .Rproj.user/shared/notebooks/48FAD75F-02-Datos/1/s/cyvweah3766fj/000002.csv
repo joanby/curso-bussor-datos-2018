@@ -1,0 +1,4 @@
+"0","data$Income.scaled <- rescale(data$Income)
+"
+"2","Error in rescale(data$Income) : could not find function ""rescale""
+"

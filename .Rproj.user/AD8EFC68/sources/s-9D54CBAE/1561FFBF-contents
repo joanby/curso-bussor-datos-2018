@@ -1,13 +1,17 @@
 ---
 title: "02-Carga de Datos"
 author: "Juan Gabriel"
-output: 
-  html_document: 
+output:
+  html_document:
+    toc: yes
+  pdf_document:
     toc: yes
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(xtable)
+
 ```
 
 # Tipos de ficheros 
@@ -26,8 +30,10 @@ data <- read.csv("../data/tema1/auto-mpg.csv", header = TRUE, sep = ",")
 names(data)#devuelve el nombre de las columnas
 
 str(data)#estructura de los datos
+```
 
-summary(data) #resumen de estadísticos básicos
+```{r results='asis'}
+knitr::kable(summary(data)) #resumen de estadísticos básicos
 ```
 
 Si no hay cabecera:
@@ -37,9 +43,9 @@ data <- read.csv("../data/tema1/auto-mpg-noheader.csv", header = FALSE, sep =","
                                "Desplazamiento", "Caballos", "Peso", 
                                "Aceleracion", "Año", "Modelo"))
 
-head(data, 5) # Muestra los 5 primeros por pantalla
+xtable(head(data, 5)) # Muestra los 5 primeros por pantalla
 
-tail(data, 5) # muestra los 5 últimos por pantalla
+xtable(tail(data, 5)) # muestra los 5 últimos por pantalla
 ```
 
 
@@ -52,5 +58,200 @@ data <- read.csv("https://frogames.es/course-contents/r/intro/tema1/WHO.csv")
 #summary(data)
 
 #str(data)
+```
+
+
+## Cargar datos desde XML
+
+Para cargar XML hace falta la librería 'XML'.
+```{r results='asis'}
+library(XML)
+
+url <- "../data/tema1/cd_catalog.xml"
+
+xmlDoc <- xmlParse(url)
+
+rootNode <- xmlRoot(xmlDoc)
+
+data <- xmlSApply(rootNode, function(x) xmlSApply(x, xmlValue))
+
+df <- data.frame(t(data), row.names = NULL)
+
+xtable(df, caption = "Datos desde un XML")
+```
+
+## Leer desde HTML
+Para leer de HTML
+
+```{r results='asis'}
+
+url <- "../data/tema1/WorldPopulation-wiki.htm"
+
+tables <- readHTMLTable(url)
+
+world.most.populous <- tables[[6]]
+
+xtable(world.most.populous, caption = "Lugares más poblados")
+```
+
+
+## Leer desde JSON
+
+```{r}
+library(jsonlite)
+
+data <- fromJSON("../data/tema1/students.json")
+
+```
+
+## Leer desde FWF
+
+```{r}
+data <- read.fwf("../data/tema1/student-fwf.txt", 
+                 widths = c(4,15,20,15,4),
+                 col.names = c("ID", "Name", "Email", "Department", "Year"))
+```
+
+## Crear objetos de R
+
+```{r}
+saveRDS(data, file = "../data/tema1/data_2018_09_25.rds")
+
+data.from.my.friend <- readRDS("../data/tema1/data_2018_09_25.rds")
+```
+
+
+```{r}
+save.image(file="../data/tema1/todos_los_datos.RData")
+attach("../data/tema1/todos_los_datos.RData")
+data()
+```
+
+
+## Limpieza de data
+
+¿Qué pasa si hay NAs?
+```{r}
+raw.data <- read.csv("../data/tema1/missing-data.csv")
+
+na.omit(raw.data)
+
+is.na(raw.data$Income)
+
+sum(complete.cases(raw.data))
+
+nrow(raw.data)
+
+mean(raw.data$Income)
+
+raw.data$Income[is.na(raw.data$Income)] <- 0
+
+mean(raw.data$Income)
+
+raw.data$Income[raw.data$Income == 0] <- NA
+
+mean(raw.data$Income, na.rm = TRUE)
+
+
+
+```
+
+
+```{r}
+raw.data <- read.csv("../data/tema1/missing-data.csv")
+
+raw.data$Income.imputed.mean <- ifelse(!is.na(raw.data$Income),
+                                       raw.data$Income, 
+                                       mean(raw.data$Income, na.rm=TRUE))
+
+
+rand.impute <- function(a){
+  missing.data <- is.na(a)## buscamos las filas que no tiene un valor
+  n.missing <- sum(missing.data)## contamos cuantos elementos tienen NAs
+  a.obs <- a[!missing.data]##me quedo con los datos que SI tengo observados
+  imputed <- a
+  imputed[missing.data] <- sample(a.obs, n.missing, replace = TRUE)
+  return(imputed)
+}
+
+random.impute.data <- function(dataframe, cols){
+  nms <- names(dataframe)
+  for (col in cols) {
+    name <- paste(nms[col], "imputed", sep=".")
+    dataframe[name] <- rand.impute(dataframe[   ,col])
+  }
+  dataframe
+}
+
+raw.data <- read.csv("../data/tema1/missing-data.csv")
+raw.data$Income[raw.data$Income==0]<-NA
+raw.data$Phone_type[raw.data$Phone_type==""] <- NA
+
+random.impute.data(raw.data,c(1,2) )
+
+
+```
+
+
+## Tratamiento de duplicados
+
+```{r}
+salary <- c(20000, 30000, 25000, 40000, 30000, 34000, 30000)
+family.size <- c(4,3,2,2,3,4,3)
+car <- c("Lujo", "Compacto", "Familiar", "Lujo", "Compacto", "Compacto", "Compacto")
+data <- data.frame(salary, family.size, car)
+
+data
+
+remove.duplicates <- unique(data)
+
+data[duplicated(data),]
+
+```
+
+## Normalizar los datos
+
+#### Escalar en $[0,1]$
+
+Tenemos los datos iniciales $\{x_i\}_{i=1}^n$.
+
+$$\frac{x_i-min(x_i)}{max(x_i)-min(x_i)}$$
+```{r}
+library(scales)
+data <- read.csv("../data/tema1/data-conversion.csv")
+
+data$Income.scaled <- rescale(data$Income, to = c(1, 35))
+
+```
+
+#### Tipificar o normalizar
+
+```{r}
+data <- read.csv("../data/tema1/BostonHousing.csv")
+
+data.z <- scale(data)
+```
+
+
+#### Segmentar
+
+```{r}
+data <- read.csv("../data/tema1/data-conversion.csv")
+limits <- c(-Inf, 10000, 31000, Inf)
+names <- c("Pringao", "Trabajador", "Jefe")
+
+data$Income.class <- cut(data$Income, breaks = limits, labels = names)
+data$Income.category <- cut(data$Income, breaks = limits)
+
+```
+
+
+##Dummies
+
+```{r}
+data <- read.csv("../data/tema1/data-conversion.csv")
+
+library(dummies)
+data.dummy <- dummy.data.frame(data, sep="_")
 ```
 

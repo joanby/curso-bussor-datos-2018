@@ -130,6 +130,14 @@ $(document).ready(function () {
 <ul>
 <li><a href="#tipos-de-ficheros">Tipos de ficheros</a><ul>
 <li><a href="#ficheros-csv">Ficheros CSV</a></li>
+<li><a href="#cargar-datos-desde-xml">Cargar datos desde XML</a></li>
+<li><a href="#leer-desde-html">Leer desde HTML</a></li>
+<li><a href="#leer-desde-json">Leer desde JSON</a></li>
+<li><a href="#leer-desde-fwf">Leer desde FWF</a></li>
+<li><a href="#crear-objetos-de-r">Crear objetos de R</a></li>
+<li><a href="#limpieza-de-data">Limpieza de data</a></li>
+<li><a href="#tratamiento-de-duplicados">Tratamiento de duplicados</a></li>
+<li><a href="#normalizar-los-datos">Normalizar los datos</a></li>
 </ul></li>
 </ul>
 </div>
@@ -162,63 +170,149 @@ names(data)#devuelve el nombre de las columnas</code></pre>
 ##  $ acceleration: num  15.5 13.5 14.5 17 15 15 13.9 14.8 18.5 14 ...
 ##  $ model_year  : int  71 72 82 72 70 75 76 81 75 76 ...
 ##  $ car_name    : Factor w/ 305 levels &quot;amc ambassador brougham&quot;,..: 66 184 165 86 8 18 11 79 42 112 ...</code></pre>
-<pre class="r"><code>summary(data) #resumen de estadísticos básicos</code></pre>
-<pre><code>##        No             mpg          cylinders      displacement  
-##  Min.   :  1.0   Min.   : 9.00   Min.   :3.000   Min.   : 68.0  
-##  1st Qu.:100.2   1st Qu.:17.50   1st Qu.:4.000   1st Qu.:104.2  
-##  Median :199.5   Median :23.00   Median :4.000   Median :148.5  
-##  Mean   :199.5   Mean   :23.51   Mean   :5.455   Mean   :193.4  
-##  3rd Qu.:298.8   3rd Qu.:29.00   3rd Qu.:8.000   3rd Qu.:262.0  
-##  Max.   :398.0   Max.   :46.60   Max.   :8.000   Max.   :455.0  
-##                                                                 
-##    horsepower        weight      acceleration     model_year   
-##  Min.   : 46.0   Min.   :1613   Min.   : 8.00   Min.   :70.00  
-##  1st Qu.: 76.0   1st Qu.:2224   1st Qu.:13.82   1st Qu.:73.00  
-##  Median : 92.0   Median :2804   Median :15.50   Median :76.00  
-##  Mean   :104.1   Mean   :2970   Mean   :15.57   Mean   :76.01  
-##  3rd Qu.:125.0   3rd Qu.:3608   3rd Qu.:17.18   3rd Qu.:79.00  
-##  Max.   :230.0   Max.   :5140   Max.   :24.80   Max.   :82.00  
-##                                                                
-##            car_name  
-##  ford pinto    :  6  
-##  amc matador   :  5  
-##  ford maverick :  5  
-##  toyota corolla:  5  
-##  amc gremlin   :  4  
-##  amc hornet    :  4  
-##  (Other)       :369</code></pre>
+<pre class="r"><code>knitr::kable(summary(data)) #resumen de estadísticos básicos</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th align="center">No</th>
+<th align="center">mpg</th>
+<th align="center">cylinders</th>
+<th align="center">displacement</th>
+<th align="center">horsepower</th>
+<th align="center">weight</th>
+<th align="center">acceleration</th>
+<th align="center">model_year</th>
+<th align="center">car_name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td align="center">Min. : 1.0</td>
+<td align="center">Min. : 9.00</td>
+<td align="center">Min. :3.000</td>
+<td align="center">Min. : 68.0</td>
+<td align="center">Min. : 46.0</td>
+<td align="center">Min. :1613</td>
+<td align="center">Min. : 8.00</td>
+<td align="center">Min. :70.00</td>
+<td align="center">ford pinto : 6</td>
+</tr>
+<tr class="even">
+<td></td>
+<td align="center">1st Qu.:100.2</td>
+<td align="center">1st Qu.:17.50</td>
+<td align="center">1st Qu.:4.000</td>
+<td align="center">1st Qu.:104.2</td>
+<td align="center">1st Qu.: 76.0</td>
+<td align="center">1st Qu.:2224</td>
+<td align="center">1st Qu.:13.82</td>
+<td align="center">1st Qu.:73.00</td>
+<td align="center">amc matador : 5</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td align="center">Median :199.5</td>
+<td align="center">Median :23.00</td>
+<td align="center">Median :4.000</td>
+<td align="center">Median :148.5</td>
+<td align="center">Median : 92.0</td>
+<td align="center">Median :2804</td>
+<td align="center">Median :15.50</td>
+<td align="center">Median :76.00</td>
+<td align="center">ford maverick : 5</td>
+</tr>
+<tr class="even">
+<td></td>
+<td align="center">Mean :199.5</td>
+<td align="center">Mean :23.51</td>
+<td align="center">Mean :5.455</td>
+<td align="center">Mean :193.4</td>
+<td align="center">Mean :104.1</td>
+<td align="center">Mean :2970</td>
+<td align="center">Mean :15.57</td>
+<td align="center">Mean :76.01</td>
+<td align="center">toyota corolla: 5</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td align="center">3rd Qu.:298.8</td>
+<td align="center">3rd Qu.:29.00</td>
+<td align="center">3rd Qu.:8.000</td>
+<td align="center">3rd Qu.:262.0</td>
+<td align="center">3rd Qu.:125.0</td>
+<td align="center">3rd Qu.:3608</td>
+<td align="center">3rd Qu.:17.18</td>
+<td align="center">3rd Qu.:79.00</td>
+<td align="center">amc gremlin : 4</td>
+</tr>
+<tr class="even">
+<td></td>
+<td align="center">Max. :398.0</td>
+<td align="center">Max. :46.60</td>
+<td align="center">Max. :8.000</td>
+<td align="center">Max. :455.0</td>
+<td align="center">Max. :230.0</td>
+<td align="center">Max. :5140</td>
+<td align="center">Max. :24.80</td>
+<td align="center">Max. :82.00</td>
+<td align="center">amc hornet : 4</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td align="center">NA</td>
+<td align="center">NA</td>
+<td align="center">NA</td>
+<td align="center">NA</td>
+<td align="center">NA</td>
+<td align="center">NA</td>
+<td align="center">NA</td>
+<td align="center">NA</td>
+<td align="center">(Other) :369</td>
+</tr>
+</tbody>
+</table>
 <p>Si no hay cabecera:</p>
 <pre class="r"><code>data &lt;- read.csv(&quot;../data/tema1/auto-mpg-noheader.csv&quot;, header = FALSE, sep =&quot;,&quot;,
                  col.names = c(&quot;Numero&quot;, &quot;MillasPorGalon&quot;, &quot;Cilindrada&quot;, 
                                &quot;Desplazamiento&quot;, &quot;Caballos&quot;, &quot;Peso&quot;, 
                                &quot;Aceleracion&quot;, &quot;Año&quot;, &quot;Modelo&quot;))
 
-head(data, 5) # Muestra los 5 primeros por pantalla</code></pre>
-<pre><code>##   Numero MillasPorGalon Cilindrada Desplazamiento Caballos Peso
-## 1      1             28          4            140       90 2264
-## 2      2             19          3             70       97 2330
-## 3      3             36          4            107       75 2205
-## 4      4             28          4             97       92 2288
-## 5      5             21          6            199       90 2648
-##   Aceleracion Año              Modelo
-## 1        15.5  71 chevrolet vega 2300
-## 2        13.5  72     mazda rx2 coupe
-## 3        14.5  82        honda accord
-## 4        17.0  72     datsun 510 (sw)
-## 5        15.0  70         amc gremlin</code></pre>
-<pre class="r"><code>tail(data, 5) # muestra los 5 últimos por pantalla</code></pre>
-<pre><code>##     Numero MillasPorGalon Cilindrada Desplazamiento Caballos Peso
-## 394    394           16.5          6            168      120 3820
-## 395    395           34.5          4            105       70 2150
-## 396    396           38.1          4             89       60 1968
-## 397    397           30.5          4             98       63 2051
-## 398    398           19.0          6            232      100 2634
-##     Aceleracion Año                Modelo
-## 394        16.7  76    mercedes-benz 280s
-## 395        14.9  79  plymouth horizon tc3
-## 396        18.8  80 toyota corolla tercel
-## 397        17.0  77    chevrolet chevette
-## 398        13.0  71           amc gremlin</code></pre>
+xtable(head(data, 5)) # Muestra los 5 primeros por pantalla</code></pre>
+<pre><code>## % latex table generated in R 3.5.1 by xtable 1.8-3 package
+## % Tue Sep 25 13:44:56 2018
+## \begin{table}[ht]
+## \centering
+## \begin{tabular}{rrrrrrrrrl}
+##   \hline
+##  &amp; Numero &amp; MillasPorGalon &amp; Cilindrada &amp; Desplazamiento &amp; Caballos &amp; Peso &amp; Aceleracion &amp; Año &amp; Modelo \\ 
+##   \hline
+## 1 &amp;   1 &amp; 28.00 &amp;   4 &amp; 140.00 &amp;  90 &amp; 2264 &amp; 15.50 &amp;  71 &amp; chevrolet vega 2300 \\ 
+##   2 &amp;   2 &amp; 19.00 &amp;   3 &amp; 70.00 &amp;  97 &amp; 2330 &amp; 13.50 &amp;  72 &amp; mazda rx2 coupe \\ 
+##   3 &amp;   3 &amp; 36.00 &amp;   4 &amp; 107.00 &amp;  75 &amp; 2205 &amp; 14.50 &amp;  82 &amp; honda accord \\ 
+##   4 &amp;   4 &amp; 28.00 &amp;   4 &amp; 97.00 &amp;  92 &amp; 2288 &amp; 17.00 &amp;  72 &amp; datsun 510 (sw) \\ 
+##   5 &amp;   5 &amp; 21.00 &amp;   6 &amp; 199.00 &amp;  90 &amp; 2648 &amp; 15.00 &amp;  70 &amp; amc gremlin \\ 
+##    \hline
+## \end{tabular}
+## \end{table}</code></pre>
+<pre class="r"><code>xtable(tail(data, 5)) # muestra los 5 últimos por pantalla</code></pre>
+<pre><code>## % latex table generated in R 3.5.1 by xtable 1.8-3 package
+## % Tue Sep 25 13:44:56 2018
+## \begin{table}[ht]
+## \centering
+## \begin{tabular}{rrrrrrrrrl}
+##   \hline
+##  &amp; Numero &amp; MillasPorGalon &amp; Cilindrada &amp; Desplazamiento &amp; Caballos &amp; Peso &amp; Aceleracion &amp; Año &amp; Modelo \\ 
+##   \hline
+## 394 &amp; 394 &amp; 16.50 &amp;   6 &amp; 168.00 &amp; 120 &amp; 3820 &amp; 16.70 &amp;  76 &amp; mercedes-benz 280s \\ 
+##   395 &amp; 395 &amp; 34.50 &amp;   4 &amp; 105.00 &amp;  70 &amp; 2150 &amp; 14.90 &amp;  79 &amp; plymouth horizon tc3 \\ 
+##   396 &amp; 396 &amp; 38.10 &amp;   4 &amp; 89.00 &amp;  60 &amp; 1968 &amp; 18.80 &amp;  80 &amp; toyota corolla tercel \\ 
+##   397 &amp; 397 &amp; 30.50 &amp;   4 &amp; 98.00 &amp;  63 &amp; 2051 &amp; 17.00 &amp;  77 &amp; chevrolet chevette \\ 
+##   398 &amp; 398 &amp; 19.00 &amp;   6 &amp; 232.00 &amp; 100 &amp; 2634 &amp; 13.00 &amp;  71 &amp; amc gremlin \\ 
+##    \hline
+## \end{tabular}
+## \end{table}</code></pre>
 <p>Para leer desde la red</p>
 <pre class="r"><code>data &lt;- read.csv(&quot;https://frogames.es/course-contents/r/intro/tema1/WHO.csv&quot;)
 
@@ -227,6 +321,203 @@ head(data, 5) # Muestra los 5 primeros por pantalla</code></pre>
 #summary(data)
 
 #str(data)</code></pre>
+</div>
+<div id="cargar-datos-desde-xml" class="section level2">
+<h2>Cargar datos desde XML</h2>
+<p>Para cargar XML hace falta la librería ‘XML’.</p>
+<pre class="r"><code>library(XML)
+
+url &lt;- &quot;../data/tema1/cd_catalog.xml&quot;
+
+xmlDoc &lt;- xmlParse(url)
+
+rootNode &lt;- xmlRoot(xmlDoc)
+
+data &lt;- xmlSApply(rootNode, function(x) xmlSApply(x, xmlValue))
+
+df &lt;- data.frame(t(data), row.names = NULL)
+
+xtable(df, caption = &quot;Datos desde un XML&quot;)</code></pre>
+% latex table generated in R 3.5.1 by xtable 1.8-3 package % Tue Sep 25 13:44:57 2018
+
+</div>
+<div id="leer-desde-html" class="section level2">
+<h2>Leer desde HTML</h2>
+<p>Para leer de HTML</p>
+<pre class="r"><code>url &lt;- &quot;../data/tema1/WorldPopulation-wiki.htm&quot;
+
+tables &lt;- readHTMLTable(url)
+
+world.most.populous &lt;- tables[[6]]
+
+xtable(world.most.populous, caption = &quot;Lugares más poblados&quot;)</code></pre>
+% latex table generated in R 3.5.1 by xtable 1.8-3 package % Tue Sep 25 13:44:57 2018
+
+</div>
+<div id="leer-desde-json" class="section level2">
+<h2>Leer desde JSON</h2>
+<pre class="r"><code>library(jsonlite)
+
+data &lt;- fromJSON(&quot;../data/tema1/students.json&quot;)</code></pre>
+</div>
+<div id="leer-desde-fwf" class="section level2">
+<h2>Leer desde FWF</h2>
+<pre class="r"><code>data &lt;- read.fwf(&quot;../data/tema1/student-fwf.txt&quot;, 
+                 widths = c(4,15,20,15,4),
+                 col.names = c(&quot;ID&quot;, &quot;Name&quot;, &quot;Email&quot;, &quot;Department&quot;, &quot;Year&quot;))</code></pre>
+</div>
+<div id="crear-objetos-de-r" class="section level2">
+<h2>Crear objetos de R</h2>
+<pre class="r"><code>saveRDS(data, file = &quot;../data/tema1/data_2018_09_25.rds&quot;)
+
+data.from.my.friend &lt;- readRDS(&quot;../data/tema1/data_2018_09_25.rds&quot;)</code></pre>
+<pre class="r"><code>save.image(file=&quot;../data/tema1/todos_los_datos.RData&quot;)
+attach(&quot;../data/tema1/todos_los_datos.RData&quot;)</code></pre>
+<pre><code>## The following objects are masked _by_ .GlobalEnv:
+## 
+##     data, data.from.my.friend, df, rootNode, tables, url,
+##     world.most.populous, xmlDoc</code></pre>
+<pre class="r"><code>data()</code></pre>
+</div>
+<div id="limpieza-de-data" class="section level2">
+<h2>Limpieza de data</h2>
+<p>¿Qué pasa si hay NAs?</p>
+<pre class="r"><code>raw.data &lt;- read.csv(&quot;../data/tema1/missing-data.csv&quot;)
+
+na.omit(raw.data)</code></pre>
+<pre><code>##    Income Phone_type   Car_type
+## 1   89800    Android     Luxury
+## 2   47500    Android Non-Luxury
+## 3   45000     iPhone     Luxury
+## 4   44700                Luxury
+## 5   59500     iPhone     Luxury
+## 7   63300     iPhone Non-Luxury
+## 8   52900    Android     Luxury
+## 9   78200    Android     Luxury
+## 10 145100     iPhone     Luxury
+## 11  88600     iPhone Non-Luxury
+## 12  65600     iPhone     Luxury
+## 14  94600    Android     Luxury
+## 15  59400     iPhone     Luxury
+## 16  47300     iPhone Non-Luxury
+## 17  72100                Luxury
+## 18      0     iPhone Non-Luxury
+## 19      0    Android     Luxury
+## 20  83000     iPhone     Luxury
+## 21  64100    Android Non-Luxury
+## 22  42100     iPhone Non-Luxury
+## 23      0     iPhone     Luxury
+## 24  91500     iPhone Non-Luxury
+## 25  51200    Android     Luxury
+## 26  13800     iPhone Non-Luxury
+## 27  47500     iPhone Non-Luxury</code></pre>
+<pre class="r"><code>is.na(raw.data$Income)</code></pre>
+<pre><code>##  [1] FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE
+## [12] FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [23] FALSE FALSE FALSE FALSE FALSE</code></pre>
+<pre class="r"><code>sum(complete.cases(raw.data))</code></pre>
+<pre><code>## [1] 25</code></pre>
+<pre class="r"><code>nrow(raw.data)</code></pre>
+<pre><code>## [1] 27</code></pre>
+<pre class="r"><code>mean(raw.data$Income)</code></pre>
+<pre><code>## [1] NA</code></pre>
+<pre class="r"><code>raw.data$Income[is.na(raw.data$Income)] &lt;- 0
+
+mean(raw.data$Income)</code></pre>
+<pre><code>## [1] 53585.19</code></pre>
+<pre class="r"><code>raw.data$Income[raw.data$Income == 0] &lt;- NA
+
+mean(raw.data$Income, na.rm = TRUE)</code></pre>
+<pre><code>## [1] 65763.64</code></pre>
+<pre class="r"><code>raw.data &lt;- read.csv(&quot;../data/tema1/missing-data.csv&quot;)
+
+raw.data$Income.imputed.mean &lt;- ifelse(!is.na(raw.data$Income),
+                                       raw.data$Income, 
+                                       mean(raw.data$Income, na.rm=TRUE))
+
+
+rand.impute &lt;- function(a){
+  missing.data &lt;- is.na(a)## buscamos las filas que no tiene un valor
+  n.missing &lt;- sum(missing.data)## contamos cuantos elementos tienen NAs
+  a.obs &lt;- a[!missing.data]##me quedo con los datos que SI tengo observados
+  imputed &lt;- a
+  imputed[missing.data] &lt;- sample(a.obs, n.missing, replace = TRUE)
+  return(imputed)
+}
+
+random.impute.data &lt;- function(dataframe, cols){
+  nms &lt;- names(dataframe)
+  for (col in cols) {
+    name &lt;- paste(nms[col], &quot;imputed&quot;, sep=&quot;.&quot;)
+    dataframe[name] &lt;- rand.impute(dataframe[   ,col])
+  }
+  dataframe
+}
+
+raw.data &lt;- read.csv(&quot;../data/tema1/missing-data.csv&quot;)
+raw.data$Income[raw.data$Income==0]&lt;-NA
+raw.data$Phone_type[raw.data$Phone_type==&quot;&quot;] &lt;- NA
+
+random.impute.data(raw.data,c(1,2) )</code></pre>
+<pre><code>##    Income Phone_type   Car_type Income.imputed Phone_type.imputed
+## 1   89800    Android     Luxury          89800            Android
+## 2   47500    Android Non-Luxury          47500            Android
+## 3   45000     iPhone     Luxury          45000             iPhone
+## 4   44700       &lt;NA&gt;     Luxury          44700            Android
+## 5   59500     iPhone     Luxury          59500             iPhone
+## 6      NA    Android Non-Luxury          94600            Android
+## 7   63300     iPhone Non-Luxury          63300             iPhone
+## 8   52900    Android     Luxury          52900            Android
+## 9   78200    Android     Luxury          78200            Android
+## 10 145100     iPhone     Luxury         145100             iPhone
+## 11  88600     iPhone Non-Luxury          88600             iPhone
+## 12  65600     iPhone     Luxury          65600             iPhone
+## 13     NA    Android Non-Luxury          45000            Android
+## 14  94600    Android     Luxury          94600            Android
+## 15  59400     iPhone     Luxury          59400             iPhone
+## 16  47300     iPhone Non-Luxury          47300             iPhone
+## 17  72100       &lt;NA&gt;     Luxury          72100             iPhone
+## 18     NA     iPhone Non-Luxury          72100             iPhone
+## 19     NA    Android     Luxury          45000            Android
+## 20  83000     iPhone     Luxury          83000             iPhone
+## 21  64100    Android Non-Luxury          64100            Android
+## 22  42100     iPhone Non-Luxury          42100             iPhone
+## 23     NA     iPhone     Luxury          64100             iPhone
+## 24  91500     iPhone Non-Luxury          91500             iPhone
+## 25  51200    Android     Luxury          51200            Android
+## 26  13800     iPhone Non-Luxury          13800             iPhone
+## 27  47500     iPhone Non-Luxury          47500             iPhone</code></pre>
+</div>
+<div id="tratamiento-de-duplicados" class="section level2">
+<h2>Tratamiento de duplicados</h2>
+<pre class="r"><code>salary &lt;- c(20000, 30000, 25000, 40000, 30000, 34000, 30000)
+family.size &lt;- c(4,3,2,2,3,4,3)
+car &lt;- c(&quot;Lujo&quot;, &quot;Compacto&quot;, &quot;Familiar&quot;, &quot;Lujo&quot;, &quot;Compacto&quot;, &quot;Compacto&quot;, &quot;Compacto&quot;)
+data &lt;- data.frame(salary, family.size, car)
+
+data</code></pre>
+<pre><code>##   salary family.size      car
+## 1  20000           4     Lujo
+## 2  30000           3 Compacto
+## 3  25000           2 Familiar
+## 4  40000           2     Lujo
+## 5  30000           3 Compacto
+## 6  34000           4 Compacto
+## 7  30000           3 Compacto</code></pre>
+<pre class="r"><code>remove.duplicates &lt;- unique(data)
+
+data[duplicated(data),]</code></pre>
+<pre><code>##   salary family.size      car
+## 5  30000           3 Compacto
+## 7  30000           3 Compacto</code></pre>
+</div>
+<div id="normalizar-los-datos" class="section level2">
+<h2>Normalizar los datos</h2>
+<div id="escalar-en-01" class="section level4">
+<h4>Escalar en <span class="math inline">\([0,1]\)</span></h4>
+<p>Tenemos los datos iniciales <span class="math inline">\(\{x_i\}_{i=1}^n\)</span>.</p>
+<p><span class="math display">\[\frac{x_i-min(x_i)}{max(x_i)-min(x_i)}\]</span></p>
+</div>
 </div>
 </div>
 

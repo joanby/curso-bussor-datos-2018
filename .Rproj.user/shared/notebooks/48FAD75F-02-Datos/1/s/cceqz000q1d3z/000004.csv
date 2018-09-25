@@ -1,0 +1,26 @@
+"0","xtable(world.most.populous, caption = ""Lugares más poblados"")
+"
+"1","% latex table generated in R 3.5.1 by xtable 1.8-3 package
+% Tue Sep 25 12:45:32 2018
+\begin{table}[ht]
+\centering
+\begin{tabular}{rllllll}
+  \hline
+ & Rank & Country / Territory & Population & Date & Approx. \% of world
+population & Source \\ 
+  \hline
+1 & 1 & China[note 4] & 1,385,310,000 & September 9, 2017 & 18.3\% & [91] \\ 
+  2 & 2 & India & 1,321,010,000 & September 9, 2017 & 17.5\% & [92] \\ 
+  3 & 3 & United States & 325,732,000 & September 9, 2017 & 4.31\% & [93] \\ 
+  4 & 4 & Indonesia & 261,600,000 & October 31, 2016 & 3.46\% & [94] \\ 
+  5 & 5 & Pakistan & 208,848,000 & September 9, 2017 & 2.76\% & [95] \\ 
+  6 & 6 & Brazil & 207,985,000 & September 9, 2017 & 2.75\% & [96] \\ 
+  7 & 7 & Nigeria & 188,500,000 & October 31, 2016 & 2.49\% & [97] \\ 
+  8 & 8 & Bangladesh & 163,106,000 & September 9, 2017 & 2.16\% & [98] \\ 
+  9 & 9 & Russia & 146,773,226 & June 1, 2017 & 1.94\% & [99] \\ 
+  10 & 10 & Japan & 126,750,000 & July 1, 2017 & 1.68\% & [100] \\ 
+   \hline
+\end{tabular}
+\caption{Lugares más poblados} 
+\end{table}
+"

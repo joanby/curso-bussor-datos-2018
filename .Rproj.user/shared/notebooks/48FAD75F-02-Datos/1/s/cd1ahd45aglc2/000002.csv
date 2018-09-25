@@ -1,0 +1,19 @@
+"0","xtable(tail(data, 5)) # muestra los 5 últimos por pantalla
+"
+"1","% latex table generated in R 3.5.1 by xtable 1.8-3 package
+% Tue Sep 25 12:45:13 2018
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrrrrrrrl}
+  \hline
+ & Numero & MillasPorGalon & Cilindrada & Desplazamiento & Caballos & Peso & Aceleracion & Año & Modelo \\ 
+  \hline
+394 & 394 & 16.50 &   6 & 168.00 & 120 & 3820 & 16.70 &  76 & mercedes-benz 280s \\ 
+  395 & 395 & 34.50 &   4 & 105.00 &  70 & 2150 & 14.90 &  79 & plymouth horizon tc3 \\ 
+  396 & 396 & 38.10 &   4 & 89.00 &  60 & 1968 & 18.80 &  80 & toyota corolla tercel \\ 
+  397 & 397 & 30.50 &   4 & 98.00 &  63 & 2051 & 17.00 &  77 & chevrolet chevette \\ 
+  398 & 398 & 19.00 &   6 & 232.00 & 100 & 2634 & 13.00 &  71 & amc gremlin \\ 
+   \hline
+\end{tabular}
+\end{table}
+"
