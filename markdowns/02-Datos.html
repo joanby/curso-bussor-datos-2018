@@ -134,10 +134,22 @@ $(document).ready(function () {
 <li><a href="#leer-desde-html">Leer desde HTML</a></li>
 <li><a href="#leer-desde-json">Leer desde JSON</a></li>
 <li><a href="#leer-desde-fwf">Leer desde FWF</a></li>
+</ul></li>
+<li><a href="#objetos-y-datos">Objetos y datos</a><ul>
 <li><a href="#crear-objetos-de-r">Crear objetos de R</a></li>
-<li><a href="#limpieza-de-data">Limpieza de data</a></li>
+</ul></li>
+<li><a href="#limpieza-de-datos">Limpieza de datos</a><ul>
+<li><a href="#el-problema-de-los-nas">El problema de los NAs</a><ul>
+<li><a href="#eliminar-filas-con-nas">Eliminar filas con NAs</a></li>
+<li><a href="#imputar-valores-de-los-nas">Imputar valores de los NAs</a></li>
+</ul></li>
 <li><a href="#tratamiento-de-duplicados">Tratamiento de duplicados</a></li>
-<li><a href="#normalizar-los-datos">Normalizar los datos</a></li>
+</ul></li>
+<li><a href="#normalizar-los-datos">Normalizar los datos</a><ul>
+<li><a href="#escalar-en-01">Escalar en <span class="math inline">\([0,1]\)</span></a></li>
+<li><a href="#tipificar-o-normalizar">Tipificar o normalizar</a></li>
+<li><a href="#segmentar">Segmentar</a></li>
+<li><a href="#dummies">Dummies</a></li>
 </ul></li>
 </ul>
 </div>
@@ -281,7 +293,7 @@ names(data)#devuelve el nombre de las columnas</code></pre>
 
 xtable(head(data, 5)) # Muestra los 5 primeros por pantalla</code></pre>
 <pre><code>## % latex table generated in R 3.5.1 by xtable 1.8-3 package
-## % Tue Sep 25 13:44:56 2018
+## % Tue Sep 25 15:48:11 2018
 ## \begin{table}[ht]
 ## \centering
 ## \begin{tabular}{rrrrrrrrrl}
@@ -298,7 +310,7 @@ xtable(head(data, 5)) # Muestra los 5 primeros por pantalla</code></pre>
 ## \end{table}</code></pre>
 <pre class="r"><code>xtable(tail(data, 5)) # muestra los 5 últimos por pantalla</code></pre>
 <pre><code>## % latex table generated in R 3.5.1 by xtable 1.8-3 package
-## % Tue Sep 25 13:44:56 2018
+## % Tue Sep 25 15:48:11 2018
 ## \begin{table}[ht]
 ## \centering
 ## \begin{tabular}{rrrrrrrrrl}
@@ -338,7 +350,7 @@ data &lt;- xmlSApply(rootNode, function(x) xmlSApply(x, xmlValue))
 df &lt;- data.frame(t(data), row.names = NULL)
 
 xtable(df, caption = &quot;Datos desde un XML&quot;)</code></pre>
-% latex table generated in R 3.5.1 by xtable 1.8-3 package % Tue Sep 25 13:44:57 2018
+% latex table generated in R 3.5.1 by xtable 1.8-3 package % Tue Sep 25 15:48:12 2018
 
 </div>
 <div id="leer-desde-html" class="section level2">
@@ -351,7 +363,7 @@ tables &lt;- readHTMLTable(url)
 world.most.populous &lt;- tables[[6]]
 
 xtable(world.most.populous, caption = &quot;Lugares más poblados&quot;)</code></pre>
-% latex table generated in R 3.5.1 by xtable 1.8-3 package % Tue Sep 25 13:44:57 2018
+% latex table generated in R 3.5.1 by xtable 1.8-3 package % Tue Sep 25 15:48:12 2018
 
 </div>
 <div id="leer-desde-json" class="section level2">
@@ -366,6 +378,9 @@ data &lt;- fromJSON(&quot;../data/tema1/students.json&quot;)</code></pre>
                  widths = c(4,15,20,15,4),
                  col.names = c(&quot;ID&quot;, &quot;Name&quot;, &quot;Email&quot;, &quot;Department&quot;, &quot;Year&quot;))</code></pre>
 </div>
+</div>
+<div id="objetos-y-datos" class="section level1">
+<h1>Objetos y datos</h1>
 <div id="crear-objetos-de-r" class="section level2">
 <h2>Crear objetos de R</h2>
 <pre class="r"><code>saveRDS(data, file = &quot;../data/tema1/data_2018_09_25.rds&quot;)
@@ -379,9 +394,14 @@ attach(&quot;../data/tema1/todos_los_datos.RData&quot;)</code></pre>
 ##     world.most.populous, xmlDoc</code></pre>
 <pre class="r"><code>data()</code></pre>
 </div>
-<div id="limpieza-de-data" class="section level2">
-<h2>Limpieza de data</h2>
+</div>
+<div id="limpieza-de-datos" class="section level1">
+<h1>Limpieza de datos</h1>
+<div id="el-problema-de-los-nas" class="section level2">
+<h2>El problema de los NAs</h2>
 <p>¿Qué pasa si hay NAs?</p>
+<div id="eliminar-filas-con-nas" class="section level3">
+<h3>Eliminar filas con NAs</h3>
 <pre class="r"><code>raw.data &lt;- read.csv(&quot;../data/tema1/missing-data.csv&quot;)
 
 na.omit(raw.data)</code></pre>
@@ -429,6 +449,9 @@ mean(raw.data$Income)</code></pre>
 
 mean(raw.data$Income, na.rm = TRUE)</code></pre>
 <pre><code>## [1] 65763.64</code></pre>
+</div>
+<div id="imputar-valores-de-los-nas" class="section level3">
+<h3>Imputar valores de los NAs</h3>
 <pre class="r"><code>raw.data &lt;- read.csv(&quot;../data/tema1/missing-data.csv&quot;)
 
 raw.data$Income.imputed.mean &lt;- ifelse(!is.na(raw.data$Income),
@@ -465,28 +488,29 @@ random.impute.data(raw.data,c(1,2) )</code></pre>
 ## 3   45000     iPhone     Luxury          45000             iPhone
 ## 4   44700       &lt;NA&gt;     Luxury          44700            Android
 ## 5   59500     iPhone     Luxury          59500             iPhone
-## 6      NA    Android Non-Luxury          94600            Android
+## 6      NA    Android Non-Luxury          65600            Android
 ## 7   63300     iPhone Non-Luxury          63300             iPhone
 ## 8   52900    Android     Luxury          52900            Android
 ## 9   78200    Android     Luxury          78200            Android
 ## 10 145100     iPhone     Luxury         145100             iPhone
 ## 11  88600     iPhone Non-Luxury          88600             iPhone
 ## 12  65600     iPhone     Luxury          65600             iPhone
-## 13     NA    Android Non-Luxury          45000            Android
+## 13     NA    Android Non-Luxury          44700            Android
 ## 14  94600    Android     Luxury          94600            Android
 ## 15  59400     iPhone     Luxury          59400             iPhone
 ## 16  47300     iPhone Non-Luxury          47300             iPhone
 ## 17  72100       &lt;NA&gt;     Luxury          72100             iPhone
-## 18     NA     iPhone Non-Luxury          72100             iPhone
-## 19     NA    Android     Luxury          45000            Android
+## 18     NA     iPhone Non-Luxury          88600             iPhone
+## 19     NA    Android     Luxury          59500            Android
 ## 20  83000     iPhone     Luxury          83000             iPhone
 ## 21  64100    Android Non-Luxury          64100            Android
 ## 22  42100     iPhone Non-Luxury          42100             iPhone
-## 23     NA     iPhone     Luxury          64100             iPhone
+## 23     NA     iPhone     Luxury          47300             iPhone
 ## 24  91500     iPhone Non-Luxury          91500             iPhone
 ## 25  51200    Android     Luxury          51200            Android
 ## 26  13800     iPhone Non-Luxury          13800             iPhone
 ## 27  47500     iPhone Non-Luxury          47500             iPhone</code></pre>
+</div>
 </div>
 <div id="tratamiento-de-duplicados" class="section level2">
 <h2>Tratamiento de duplicados</h2>
@@ -511,13 +535,40 @@ data[duplicated(data),]</code></pre>
 ## 5  30000           3 Compacto
 ## 7  30000           3 Compacto</code></pre>
 </div>
-<div id="normalizar-los-datos" class="section level2">
-<h2>Normalizar los datos</h2>
-<div id="escalar-en-01" class="section level4">
-<h4>Escalar en <span class="math inline">\([0,1]\)</span></h4>
+</div>
+<div id="normalizar-los-datos" class="section level1">
+<h1>Normalizar los datos</h1>
+<div id="escalar-en-01" class="section level2">
+<h2>Escalar en <span class="math inline">\([0,1]\)</span></h2>
 <p>Tenemos los datos iniciales <span class="math inline">\(\{x_i\}_{i=1}^n\)</span>.</p>
 <p><span class="math display">\[\frac{x_i-min(x_i)}{max(x_i)-min(x_i)}\]</span></p>
+<pre class="r"><code>library(scales)
+data &lt;- read.csv(&quot;../data/tema1/data-conversion.csv&quot;)
+
+data$Income.scaled &lt;- rescale(data$Income, to = c(1, 35))</code></pre>
 </div>
+<div id="tipificar-o-normalizar" class="section level2">
+<h2>Tipificar o normalizar</h2>
+<pre class="r"><code>data &lt;- read.csv(&quot;../data/tema1/BostonHousing.csv&quot;)
+
+data.z &lt;- scale(data)</code></pre>
+</div>
+<div id="segmentar" class="section level2">
+<h2>Segmentar</h2>
+<pre class="r"><code>data &lt;- read.csv(&quot;../data/tema1/data-conversion.csv&quot;)
+limits &lt;- c(-Inf, 10000, 31000, Inf)
+names &lt;- c(&quot;Pringao&quot;, &quot;Trabajador&quot;, &quot;Jefe&quot;)
+
+data$Income.class &lt;- cut(data$Income, breaks = limits, labels = names)
+data$Income.category &lt;- cut(data$Income, breaks = limits)</code></pre>
+</div>
+<div id="dummies" class="section level2">
+<h2>Dummies</h2>
+<pre class="r"><code>data &lt;- read.csv(&quot;../data/tema1/data-conversion.csv&quot;)
+
+library(dummies)</code></pre>
+<pre><code>## dummies-1.5.6 provided by Decision Patterns</code></pre>
+<pre class="r"><code>data.dummy &lt;- dummy.data.frame(data, sep=&quot;_&quot;)</code></pre>
 </div>
 </div>
 

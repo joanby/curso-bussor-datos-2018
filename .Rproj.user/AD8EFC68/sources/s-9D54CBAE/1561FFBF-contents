@@ -112,6 +112,8 @@ data <- read.fwf("../data/tema1/student-fwf.txt",
                  col.names = c("ID", "Name", "Email", "Department", "Year"))
 ```
 
+# Objetos y datos
+
 ## Crear objetos de R
 
 ```{r}
@@ -128,9 +130,12 @@ data()
 ```
 
 
-## Limpieza de data
+# Limpieza de datos
 
+## El problema de los NAs
 ¿Qué pasa si hay NAs?
+
+### Eliminar filas con NAs
 ```{r}
 raw.data <- read.csv("../data/tema1/missing-data.csv")
 
@@ -156,6 +161,7 @@ mean(raw.data$Income, na.rm = TRUE)
 
 ```
 
+### Imputar valores de los NAs
 
 ```{r}
 raw.data <- read.csv("../data/tema1/missing-data.csv")
@@ -209,9 +215,9 @@ data[duplicated(data),]
 
 ```
 
-## Normalizar los datos
+# Normalizar los datos
 
-#### Escalar en $[0,1]$
+## Escalar en $[0,1]$
 
 Tenemos los datos iniciales $\{x_i\}_{i=1}^n$.
 
@@ -224,7 +230,7 @@ data$Income.scaled <- rescale(data$Income, to = c(1, 35))
 
 ```
 
-#### Tipificar o normalizar
+## Tipificar o normalizar
 
 ```{r}
 data <- read.csv("../data/tema1/BostonHousing.csv")
@@ -233,7 +239,7 @@ data.z <- scale(data)
 ```
 
 
-#### Segmentar
+## Segmentar
 
 ```{r}
 data <- read.csv("../data/tema1/data-conversion.csv")
