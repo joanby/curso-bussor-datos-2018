@@ -1,0 +1,5 @@
+"0","lines(density(data$mpg))
+"
+"2","Error in plot.xy(xy.coords(x, y), type = type, ...) : 
+  plot.new has not been called yet
+"

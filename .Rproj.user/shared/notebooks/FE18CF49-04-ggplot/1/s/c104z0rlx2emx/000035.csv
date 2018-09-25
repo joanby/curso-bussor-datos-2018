@@ -1,0 +1,13 @@
+"0","ggplot(data = diamonds) + 
+  geom_bar(
+    mapping = aes(x = cut, fill = cut),
+    show.legend = F,
+    width = 1
+  )+
+  theme(aspect.ratio = 1)+
+  labs(x = ""Corte"", y = ""Número de Diamantes"", title = ""Diagrama en forma de tela de araña"")+
+  coord_flip()+
+  coord_polar()
+"
+"2","Coordinate system already present. Adding new coordinate system, which will replace the existing one.
+"

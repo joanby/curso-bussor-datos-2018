@@ -1,0 +1,24 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1537884132503.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "158254188",
+    "id" : "2AB019F0",
+    "lastKnownWriteTime" : 1537890545,
+    "last_content_update" : 1537890545096,
+    "path" : "~/Developer/Projects/R/Cursos/curso-bussor-datos-2018/markdowns/03-AnalisisExploratorio.Rmd",
+    "project_path" : "markdowns/03-AnalisisExploratorio.Rmd",
+    "properties" : {
+        "cursorPosition" : "192,47",
+        "last_setup_crc32" : "9D54CBAEbb338d19",
+        "scrollLine" : "185",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}
