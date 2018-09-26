@@ -1,0 +1,7 @@
+"0","prp(tree.pruned, type = 2, nn = TRUE, fallen.leaves =  TRUE, faclen = 4, 
+    varlen = 8, shadow.col = ""gray"")
+"
+"2","Bad 'data' field in model 'call' (expected a data.frame or a matrix).
+To silence this warning:
+    Call prp with roundint=FALSE,
+    or rebuild the rpart model with model=TRUE."

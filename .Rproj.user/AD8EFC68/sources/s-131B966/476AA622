@@ -12,9 +12,9 @@
     "path" : null,
     "project_path" : null,
     "properties" : {
-        "cacheKey" : "2C46D7C7",
+        "cacheKey" : "3DA4157B",
         "caption" : "boston",
-        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=boston&cache_key=2C46D7C7",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=boston&cache_key=3DA4157B",
         "displayedObservations" : "506",
         "environment" : "",
         "object" : "boston",

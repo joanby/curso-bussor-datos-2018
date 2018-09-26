@@ -114,3 +114,118 @@ library(MASS)
 step <- stepAIC(mod, direction = "backward")
 ```
 
+## Árboles de regresión
+
+```{r}
+library(caret)
+library(rpart)
+library(rpart.plot)
+
+boston <- read.csv("../data/tema4/BostonHousing.csv")
+set.seed(2018)
+ids <- createDataPartition(boston$MEDV, p = 0.7, list = FALSE)
+
+tree <- rpart(MEDV ~ ., data = boston[ids, ])
+tree
+
+prp(tree, type = 2, nn = TRUE, fallen.leaves =  TRUE, faclen = 4, 
+    varlen = 8, shadow.col = "gray")
+```
+
+### Poda del árbol
+
+```{r}
+
+tree$cptable
+plotcp(tree)
+
+tree.pruned <- prune(tree, cp = 0.03)
+
+prp(tree.pruned, type = 2, nn = TRUE, fallen.leaves =  TRUE, faclen = 4, 
+    varlen = 8, shadow.col = "gray")
+
+```
+
+
+### Predicción
+```{r}
+pred <- predict(tree.pruned, boston[-ids,])
+
+rmse(pred, boston[-ids,]$MEDV)
+
+relative.error(pred, boston[-ids,]$MEDV)
+```
+
+
+## Random Forest
+
+```{r}
+library(randomForest)
+
+forest <- randomForest(x = boston[ids, -c(1)], y = boston[ids,]$MEDV,
+                       xtest = boston[-ids, -c(1)], ytest = boston[-ids,]$MEDV,
+                       ntree = 500, importance = TRUE, keep.forest = TRUE)
+
+forest
+
+forest$importance
+```
+
+### Predicción
+```{r}
+plot(boston[ids, ]$MEDV, predict(forest, newdata = boston[ids,-c(1)]), xlab = "Actual", ylab = "Predicción" )
+
+plot(boston[-ids, ]$MEDV, predict(forest, newdata = boston[-ids,-c(1)]), xlab = "Actual", ylab = "Predicción" )
+```
+
+# Validación cruzada de datos
+
+##K Fold CV
+
+```{r}
+kfold.cv <- function(df, k_folds){
+  fold <- sample(1:k_folds, nrow(df), replace = TRUE)
+  errors <- vector()
+  for(k in 1:k_folds){
+    training.ids <- !fold %in% c(k)
+    validation.ids <- fold %in% c(k)
+    
+    mod <- lm(MEDV ~ ., data = df[training.ids,])
+    pred <- predict(mod, df[validation.ids,])
+    err <- rmse(pred, df[validation.ids,]$MEDV)
+    errors = c(errors, err)
+  }
+  print(errors)
+  print(mean(errors))
+}
+
+kfold.cv(boston, 8)
+
+
+
+```
+
+
+
+
+
+##LOOCV
+
+```{r}
+loo.cv <- function(df){
+  errors <- vector()
+  for(k in 1:nrow(df)){
+    mod <- lm(MEDV ~ ., data = df[-k,])
+    pred <- predict(mod, df[k,])
+    err <- rmse(pred, df[k,]$MEDV)
+    errors = c(errors, err)
+  }
+  print(errors)
+  print(mean(errors))
+}
+
+loo.cv(boston)
+
+
+
+```

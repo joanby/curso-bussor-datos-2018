@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1537981497401.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "479D80CB",
+    "lastKnownWriteTime" : 1537981592,
+    "last_content_update" : 1537981592860,
+    "path" : "~/Developer/Projects/R/Cursos/curso-bussor-datos-2018/markdowns/PruebaFinal/app.R",
+    "project_path" : "markdowns/PruebaFinal/app.R",
+    "properties" : {
+        "cursorPosition" : "41,6",
+        "notebook_format" : "html_document",
+        "scrollLine" : "35"
+    },
+    "relative_order" : 10,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
