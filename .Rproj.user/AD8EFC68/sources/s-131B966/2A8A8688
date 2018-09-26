@@ -1,0 +1,29 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1537954083108.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "2A8A8688",
+    "lastKnownWriteTime" : 7147058054238830598,
+    "last_content_update" : 1537954083108,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "9870A754",
+        "caption" : "bank",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=bank&cache_key=9870A754",
+        "displayedObservations" : 1372,
+        "environment" : "",
+        "object" : "bank",
+        "preview" : 0,
+        "totalObservations" : 1372,
+        "variables" : 5
+    },
+    "relative_order" : 13,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

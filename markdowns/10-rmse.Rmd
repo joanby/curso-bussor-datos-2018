@@ -1,0 +1,33 @@
+---
+title: "10-rmse"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## RMSE
+
+Sean $\{x_i\}$ datos con valor exacto $y_i$ y predicción $\hat y(x_i)$
+$$RMSE = \sqrt{\displaystyle\frac{\displaystyle\sum_{i=1}^n (y_i - \hat y(x_i))^2}{n}}$$
+```{r}
+rmse <- function(actual, prediction){
+  return (sqrt(mean((actual-prediction)^2)))
+}
+
+relative.error <-function(actual, prediction){
+  return(rmse(actual,  prediction)/mean(actual)*100)
+}
+```
+
+
+
+```{r}
+data <- read.csv("../data/tema4/rmse.csv")
+
+rmse(data$price, data$pred)
+
+relative.error(data$price, data$pred)
+```
+

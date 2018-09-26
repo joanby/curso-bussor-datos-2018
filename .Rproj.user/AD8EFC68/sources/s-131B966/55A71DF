@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1537946730535.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "55A71DF",
+    "lastKnownWriteTime" : 11550773836120064,
+    "last_content_update" : 1537946730535,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "id" : "a2bfeacb43ac4035bfa39ef8ade5eca0",
+        "name" : "data.split",
+        "title" : "data.split"
+    },
+    "relative_order" : 12,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "object_explorer"
+}

@@ -1,0 +1,29 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1537971585621.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "C4032E7C",
+    "lastKnownWriteTime" : 1537971536,
+    "last_content_update" : 1537971585621,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "9D42AD27",
+        "caption" : "edu",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=edu&cache_key=9D42AD27",
+        "displayedObservations" : 50,
+        "environment" : "",
+        "object" : "edu",
+        "preview" : 0,
+        "totalObservations" : 50,
+        "variables" : 6
+    },
+    "relative_order" : 17,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

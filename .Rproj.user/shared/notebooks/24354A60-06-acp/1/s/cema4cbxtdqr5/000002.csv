@@ -1,0 +1,4 @@
+"0","colnames(crimes, c(""Asesinato"", ""Robo"", ""Poblacion"", ""Violacion""))
+"
+"2","Error in is.data.frame(x) && do.NULL : invalid 'y' type in 'x && y'
+"

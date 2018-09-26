@@ -1,0 +1,24 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1537891896082.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "EE71E631",
+    "lastKnownWriteTime" : 1537894612,
+    "last_content_update" : 1537894612332,
+    "path" : "~/Developer/Projects/R/Cursos/curso-bussor-datos-2018/markdowns/04-ggplot.Rmd",
+    "project_path" : "markdowns/04-ggplot.Rmd",
+    "properties" : {
+        "cursorPosition" : "135,0",
+        "last_setup_crc32" : "",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 7,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

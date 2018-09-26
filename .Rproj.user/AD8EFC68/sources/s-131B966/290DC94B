@@ -1,0 +1,29 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1537951629472.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "290DC94B",
+    "lastKnownWriteTime" : 4721629144,
+    "last_content_update" : 1537951629472,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "1DEB6951",
+        "caption" : "roc",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=roc&cache_key=1DEB6951",
+        "displayedObservations" : 100,
+        "environment" : "",
+        "object" : "roc",
+        "preview" : 0,
+        "totalObservations" : 100,
+        "variables" : 2
+    },
+    "relative_order" : 10,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

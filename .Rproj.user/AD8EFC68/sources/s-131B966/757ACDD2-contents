@@ -1,0 +1,59 @@
+---
+title: "05-Split"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Conjunto de entrenamiento y validación
+
+```{r}
+data <- read.csv("../data/tema2/auto-mpg.csv", stringsAsFactors = FALSE)
+
+data.split <- split(data, data$cylinders) 
+
+```
+
+
+## División aleatoria
+
+
+```{r}
+library(caret)
+
+boston <- read.csv("../data/tema2/BostonHousing.csv")
+
+set.seed(2018)
+idx <- createDataPartition(boston$MEDV, p = 0.8, list = FALSE)
+
+train <- boston[idx, ]
+val <- boston[-idx, ]
+```
+
+## Muestreo aleatorio
+
+```{r}
+set.seed(2018)
+sample(1:nrow(boston), 100, replace = FALSE)
+```
+
+## Matrices de confusión
+
+```{r}
+data <- read.csv("../data/tema3/college-perf.csv")
+
+tabla <- table(data$Perf, data$Pred, dnn = c("Real", "Predicción"))
+
+tabla
+
+round(prop.table(tabla)*100,1)
+
+barplot(tabla, legend = TRUE)
+
+mosaicplot(tabla)
+
+summary(tabla)
+```
+

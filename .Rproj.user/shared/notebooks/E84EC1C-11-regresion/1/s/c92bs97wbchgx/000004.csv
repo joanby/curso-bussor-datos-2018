@@ -1,0 +1,4 @@
+"0","ids2 <- createDataPartition(temp, p=0.5, list = FALSE)
+"
+"2","Error in table(y) : attempt to make a table with >= 2^31 elements
+"

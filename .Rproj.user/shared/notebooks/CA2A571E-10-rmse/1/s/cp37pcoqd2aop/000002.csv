@@ -1,0 +1,4 @@
+"0","  return(rmse(actual,  prediction)/mean(actual)*100)
+"
+"2","Error in mean((actual - prediction)^2) : object 'actual' not found
+"

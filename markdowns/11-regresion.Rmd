@@ -1,0 +1,116 @@
+---
+title: "11-regresion"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+<!-- FRAGMENTO QUE CARGARÁ LAS FUNCIONES DE RMSE-->
+```{r, include = FALSE}
+#FRAGMENTO QUE CARGARÁ LAS FUNCIONES DE RMSE
+rmse <- function(actual, prediction){
+  return (sqrt(mean((actual-prediction)^2)))
+}
+
+relative.error <-function(actual, prediction){
+  return(rmse(actual,  prediction)/mean(actual)*100)
+}
+```
+
+#Regresión con KNN
+```{r}
+library(FNN)
+library(dummies)
+library(caret)
+library(scales)
+```
+
+##Carga y limpieza de datos
+
+```{r}
+edu <- read.csv("../data/tema4/education.csv")
+dms <- dummy(edu$region, sep = "_")
+edu <- cbind(edu, dms)
+edu$urban.Z <- rescale(edu$urban)
+edu$income.Z <- rescale(edu$income)
+edu$under18.Z <- rescale(edu$under18)
+
+```
+
+##Partición
+```{r}
+set.seed(2018)
+ids <- createDataPartition(edu$expense, p = 0.6, list = FALSE)
+tr <- edu[ids, ]
+temp<- edu[-ids, ]
+ids2 <- createDataPartition(temp$expense, p=0.5, list = FALSE)
+val <- temp[ids2, ]
+test<- temp[-ids2, ]
+```
+
+
+## KNN
+
+```{r}
+errors <- vector()
+for(k in 1:10){
+  res <- knn.reg(tr[,7:13], val[,7:13], tr$expense, k, algorithm = "brute")
+  cat("K=",k,"\n")
+  print("==============")
+  rr <- relative.error(res$pred, val$expense)
+  print(rr)
+  cat("\n\n")
+  errors <- c(errors, rr)
+}
+plot(x = 1:10, y=errors, type = 'o', xlab = "k", ylab = "RMSE")
+```
+
+
+## Regresión Lineal
+```{r}
+library(dummies)
+car <- read.csv("../data/tema4/auto-mpg.csv")
+car$cylinders <- factor(car$cylinders)
+dms <- dummy(car$cylinders)
+car <- cbind(car, dms)
+car
+
+set.seed(2018)
+
+idx <- createDataPartition(car$mpg, p = 0.7, list = FALSE)
+
+```
+
+
+```{r}
+mod <- lm(mpg~., data = car[ids, -c(1,3,8,9)])
+mod
+summary(mod)
+```
+
+## Predicción
+```{r}
+car[-idx, -c(1,8,9)]
+
+
+pred <- predict(mod, car[-idx, -c(1,8,9)])
+pred
+```
+
+## Plot residuos
+```{r}
+par(mfrow=c(2,2))
+plot(mod)
+par(mfrow=c(1,1))
+```
+
+
+## Elección de variables con AIC y BIC
+
+```{r}
+library(MASS)
+step <- stepAIC(mod, direction = "backward")
+```
+

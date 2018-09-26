@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1537951678488.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "DA30F551",
+    "lastKnownWriteTime" : 4300412256,
+    "last_content_update" : 1537951678488,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "id" : "9b43773738da4843a525b29d1d6b46e9",
+        "name" : "pred",
+        "title" : "pred"
+    },
+    "relative_order" : 11,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "object_explorer"
+}
